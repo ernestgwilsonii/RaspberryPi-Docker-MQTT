@@ -1,0 +1,60 @@
+version: "3.8"
+
+services:
+  MQTT:
+    # REF: https://hub.docker.com/_/eclipse-mosquitto
+    image: eclipse-mosquitto:2.0.14-openssl
+    hostname: mqtt
+    ports:
+      # MQTT unencrypted TCP 1883
+      - mode: ingress
+        target: 1883
+        published: 1883
+        protocol: tcp
+      # MQTT encrypted TCP 8883
+      - mode: ingress
+        target: 8883
+        published: 8883
+        protocol: tcp
+      # Websocket unencrypted TCP 9001
+      - mode: ingress
+        target: 9001
+        published: 9001
+        protocol: tcp
+      # Websocket encrypted TCP 9883
+      - mode: ingress
+        target: 9883
+        published: 9883
+        protocol: tcp
+    networks:
+      - mqtt-net1
+    volumes:
+      - type: bind
+        source: /opt/docker/mqtt/config/mosquitto.conf
+        target: /mosquitto/config/mosquitto.conf
+      - type: bind
+        source: /opt/docker/mqtt/config/conf.d
+        target: /mosquitto/config/conf.d
+      - type: bind
+        source: /opt/docker/mqtt/config/passwd
+        target: /mosquitto/config/passwd
+      - type: bind
+        source: /opt/docker/mqtt/config/aclfile
+        target: /mosquitto/config/aclfile
+      - type: bind
+        source: /opt/docker/mqtt/config/certs
+        target: /mosquitto/config/certs
+      - type: bind
+        source: /opt/docker/mqtt/data
+        target: /mosquitto/data
+      - type: bind
+        source: /opt/docker/mqtt/log
+        target: /mosquitto/log
+    deploy:
+      labels:
+        local.description: "Mosquitto MQTT"
+      restart_policy:
+        condition: on-failure
+        
+networks:
+  mqtt-net1:
