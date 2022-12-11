@@ -3,7 +3,7 @@ version: "3.8"
 services:
   MQTT:
     # REF: https://hub.docker.com/_/eclipse-mosquitto
-    image: eclipse-mosquitto:2.0.14-openssl
+    image: eclipse-mosquitto:2.0.15-openssl
     hostname: mqtt
     ports:
       # MQTT unencrypted TCP 1883

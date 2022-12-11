@@ -17,7 +17,7 @@ ssh pi@IpAddressOfYourRaspberryPi
 # REF: https://github.com/eclipse/mosquitto/tree/1c79920d78321c69add9d6d6f879dd73387bc25e/docker/2.0-openssl
 
 # Set version variable:
-MOSQUITTO_VERSION=2.0.14-openssl
+MOSQUITTO_VERSION=2.0.15-openssl
 
 # Download the Raspberry Pi version:
 docker pull eclipse-mosquitto:$MOSQUITTO_VERSION
